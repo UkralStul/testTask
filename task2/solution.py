@@ -19,13 +19,12 @@ def get_animal_pages():
             break
 
         soup = BeautifulSoup(response.content, "html.parser")
-        # Выборка всех ссылок на страницы животных
+
         groups = soup.select(".mw-category-columns ul li a")
         for link in groups:
             animal_name = link.text.strip()  # Название животного
             first_letter = animal_name[0].upper()  # Первая буква
 
-            # Увеличиваем счетчик для буквы
             animal_counts[first_letter] = animal_counts.get(first_letter, 0) + 1
 
         # Поиск ссылки на следующую страницу
@@ -37,7 +36,6 @@ def get_animal_pages():
         else:
             next_page = None
 
-    # Сохранение в CSV
     with open("animals.csv", "w", encoding="utf-8", newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["Буква", "Количество"])
@@ -46,5 +44,4 @@ def get_animal_pages():
 
     print("Данные успешно записаны в animals.csv")
 
-# Запуск функции
 get_animal_pages()
