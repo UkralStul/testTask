@@ -19,25 +19,3 @@ def strict(func):
         return func(*args, **kwargs)
 
     return wrapper
-
-
-@strict
-def sum_two(a: int, b: int) -> int:
-    return a + b
-
-
-# Тесты
-try:
-    print(sum_two(1, 2))  # 3
-except TypeError as e:
-    print(e)
-
-try:
-    print(sum_two(1, 2.4))  # TypeError
-except TypeError as e:
-    print(e)
-
-try:
-    print(sum_two('poka', 'privet'))  # TypeError
-except TypeError as e:
-    print(e)
