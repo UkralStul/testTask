@@ -17,12 +17,10 @@ def intersect_intervals(intervals1, intervals2):
     while i < len(intervals1) and j < len(intervals2):
         start1, end1 = intervals1[i]
         start2, end2 = intervals2[j]
-        # Проверяем, есть ли пересечение
         start = max(start1, start2)
         end = min(end1, end2)
         if start < end:  # Если пересекаются
             result.append([start, end])
-        # Переходим к следующему интервалу
         if end1 < end2:
             i += 1
         else:
@@ -36,17 +34,13 @@ def intervals_to_pairs(intervals):
 
 
 def appearance(intervals: dict[str, list[int]]) -> int:
-    # Преобразуем интервалы в пары
     lesson_intervals = intervals_to_pairs(intervals['lesson'])
     pupil_intervals = merge_intervals(intervals_to_pairs(intervals['pupil']))
     tutor_intervals = merge_intervals(intervals_to_pairs(intervals['tutor']))
 
-    # Пересекаем интервалы ученика и учителя
     common_intervals = intersect_intervals(pupil_intervals, tutor_intervals)
-    # Пересекаем с интервалами урока
     lesson_common_intervals = intersect_intervals(lesson_intervals, common_intervals)
 
-    # Считаем общее время
     total_time = sum(end - start for start, end in lesson_common_intervals)
     return total_time
 
